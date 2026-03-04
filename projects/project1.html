@@ -18,24 +18,30 @@
 </nav>
 
 <section class="container">
-    <h2>Project Overview</h2>
-    <p>
-        Designed and deployed a highly available AWS architecture using:
-    </p>
+    <h2>Architecture Design</h2>
 
-    <ul>
-        <li>EC2 instances across multiple Availability Zones</li>
-        <li>Application Load Balancer</li>
-        <li>CloudFront CDN</li>
-        <li>S3 static content</li>
-        <li>IAM roles for secure access</li>
-    </ul>
+<p>
+This architecture was designed for high availability and edge performance.
+Traffic flows through CloudFront → Application Load Balancer → EC2 instances 
+across multiple Availability Zones.
+</p>
 
-    <h2>What I Learned</h2>
-    <p>
-        This project strengthened my understanding of load balancing, CDN caching,
-        and secure cloud architecture design.
-    </p>
+<h2>Architecture Components</h2>
+
+<div class="card">
+    <h3>High Availability</h3>
+    <p>EC2 instances deployed across multiple AZs behind an ALB.</p>
+</div>
+
+<div class="card">
+    <h3>Security</h3>
+    <p>IAM roles with least privilege access and restricted security groups.</p>
+</div>
+
+<div class="card">
+    <h3>Performance Optimization</h3>
+    <p>CloudFront CDN reduces latency and improves global access speed.</p>
+</div>
 </section>
 
 <footer>
@@ -43,4 +49,5 @@
 </footer>
 
 </body>
+
 </html>
