@@ -77,4 +77,9 @@ footer {
     background: var(--dark);
     color: var(--white);
     margin-top: 40px;
+
+}
+.logo {
+    width: 120px;
+    margin-bottom: 15px;
 }
