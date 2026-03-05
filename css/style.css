@@ -217,7 +217,7 @@ nav a:hover {
 }
 
 .project-card {
-    background: rgba(255,255,255,0.6);
+    background: rgba(230,220,255,0.6); /* very light purple tint */
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     padding: 25px;
@@ -351,4 +351,5 @@ footer {
     from { transform: translateX(0) scale(1); }
     to { transform: translateX(-120px) scale(1.1); }
 }
+
 
