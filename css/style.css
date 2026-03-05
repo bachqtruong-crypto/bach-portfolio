@@ -1,9 +1,9 @@
 :root {
-    --primary: #3b82f6;
-    --secondary: #06b6d4;
-    --accent: #8b5cf6;
-    --dark: #0f172a;
-    --light: #f1f5f9;
+    --primary: #8b5cf6;     /* bright purple */
+    --secondary: #22c55e;   /* bright green */
+    --accent: #a855f7;      /* lighter purple */
+    --dark: #1e1e2f;
+    --light: #f4f6f9;
     --white: #ffffff;
 }
 
@@ -15,7 +15,7 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: var(--light);
+    background: linear-gradient(180deg, #f4f6f9, #eef2ff);
     color: #333;
     line-height: 1.6;
     transition: background 0.3s ease;
@@ -83,6 +83,7 @@ nav a:hover {
 }
 
 .btn:hover {
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
@@ -96,7 +97,7 @@ footer {
 
 }
 .hero {
-    background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+    background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
     color: white;
     padding: 120px 20px;
     text-align: center;
@@ -110,7 +111,8 @@ footer {
 .logo {
     width: 120px;
     margin-bottom: 20px;
-    filter: drop-shadow(0 0 15px rgba(59,130,246,0.6));
+    filter: drop-shadow(0 0 12px rgba(139,92,246,0.7))
+            drop-shadow(0 0 18px rgba(34,197,94,0.6));
 }
 
 .tagline {
@@ -140,8 +142,10 @@ footer {
     background: var(--white);
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-top: 4px solid var(--primary);
+}
+.project-card:nth-child(even) {
+    border-top: 4px solid var(--secondary);
 }
 
 .project-card:hover {
@@ -163,4 +167,5 @@ body {
     from {opacity:0;}
     to {opacity:1;}
 }
+
 
