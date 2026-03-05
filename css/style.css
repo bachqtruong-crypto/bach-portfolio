@@ -55,11 +55,7 @@ body::before {
     top: 20%;
     width: 700px;   /* bigger glow */
     height: 700px;
-    background: radial-gradient(
-        circle,
-        rgba(139,92,246,0.5), /* much stronger */
-        transparent 60%
-    );
+    background: radial-gradient(circle, rgba(139,92,246,0.5), transparent 60%);
     animation: purplePulse 10s infinite alternate;
     z-index: -1;
 }
@@ -221,7 +217,7 @@ nav a:hover {
 }
 
 .project-card {
-    background: rgba(235,225,255,0.6); /* very light purple tint */
+    background: rgba(255,255,255,0.65); /* mostly white with slight transparency */
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     padding: 25px;
@@ -238,8 +234,11 @@ nav a:hover {
 }
 
 .project-card:hover {
-    transform: translateY(-10px) scale(1.03);
-    
+   transform: translateY(-10px) scale(1.03);
+   box-shadow:
+        0 18px 45px rgba(0,0,0,0.18),
+        0 0 25px rgba(139,92,246,0.45),
+        0 0 20px rgba(34,197,94,0.25);
 }
 
 /* ========================
@@ -354,6 +353,7 @@ footer {
     from { transform: translateX(0) scale(1); }
     to { transform: translateX(-120px) scale(1.1); }
 }
+
 
 
 
