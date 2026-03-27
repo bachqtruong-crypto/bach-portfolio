@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>S3 + CloudFront Project | Bach</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Step-by-step AWS project: Hosting a static website using S3 and CloudFront.">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="sub-hero">
+    <h1>My First AWS Project</h1>
+    <p>Hosting a Simple Page with S3 and CloudFront</p>
+</header>
+
+<nav>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../projects.html">Projects</a>
+</nav>
+
+<section class="container">
+
+    <h2>Overview</h2>
+    <p>
+        For my first AWS project, I wanted to start with something simple but still useful.
+        The goal was to host a basic web page using an S3 bucket and then deliver it through CloudFront.
+    </p>
+
+    <p>
+        This is a very common real-world setup for static websites, making it a great starting point
+        for learning AWS fundamentals.
+    </p>
+
+    <h3>Architecture Diagram</h3>
+    <img src="../assets/diagram.png" alt="S3 CloudFront Architecture Diagram" class="project-img">
+
+    <!-- STEP 1 -->
+    <h2>Step 1: Create an S3 Bucket</h2>
+    <p>
+        The first thing I did was create an S3 bucket.
+        Inside the AWS console, I navigated to:
+    </p>
+
+    <p><strong>S3 → Create Bucket</strong></p>
+
+    <p>
+        I named my bucket <strong>bach-bucket67</strong>.
+        Bucket names must be globally unique, so you may need to try a few variations.
+    </p>
+
+    <p>
+        I kept most settings as default. Importantly, the bucket starts as <strong>private</strong>,
+        which is the recommended security practice.
+    </p>
+
+    <img src="../assets/s3-create.png" alt="S3 Bucket Creation" class="project-img">
+
+    <!-- STEP 2 -->
+    <h2>Step 2: Create a Simple HTML Page</h2>
+    <p>
+        Next, I created a simple HTML file using Notepad and saved it as <strong>index.html</strong>.
+    </p>
+
+    <pre class="code-block">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My First AWS Project&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, this is my first AWS project!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+
+    <p>
+        Nothing fancy—just enough to confirm everything works.
+    </p>
+
+    <!-- STEP 3 -->
+    <h2>Step 3: Upload the File to S3</h2>
+    <p>
+        I uploaded the file to my bucket:
+    </p>
+
+    <ul>
+        <li>Open bucket (<strong>bach-bucket67</strong>)</li>
+        <li>Click <strong>Upload</strong></li>
+        <li>Select <strong>index.html</strong></li>
+        <li>Upload</li>
+    </ul>
+
+    <p>
+        The file is now stored in S3, but since the bucket is private, it cannot be accessed publicly.
+        This is where CloudFront comes in.
+    </p>
+
+    <!-- STEP 4 -->
+    <h2>Step 4: Create a CloudFront Distribution</h2>
+    <p>
+        Instead of making the bucket public, I used CloudFront to securely deliver the content.
+    </p>
+
+    <p><strong>CloudFront → Create Distribution</strong></p>
+
+    <ul>
+        <li>Origin: S3 bucket (<strong>bach-bucket67</strong>)</li>
+        <li>Enabled <strong>Origin Access Control (OAC)</strong></li>
+        <li>Left other settings as default</li>
+    </ul>
+
+    <h3>Setting the Default Root Object</h3>
+    <p>
+        This is a critical step:
+    </p>
+
+    <ul>
+        <li>Go to your distribution</li>
+        <li>Edit settings</li>
+        <li>Set <strong>Default Root Object</strong> to: <code>index.html</code></li>
+    </ul>
+
+    <p>
+        Without this, CloudFront may return an <strong>AccessDenied</strong> error because it doesn't
+        know which file to display.
+    </p>
+
+    <p>
+        After saving, I waited a few minutes for deployment.
+    </p>
+
+    <!-- STEP 5 -->
+    <h2>Step 5: Test the Website</h2>
+    <p>
+        Once deployed, CloudFront provided a domain like:
+    </p>
+
+    <pre class="code-block">
+d123abcd.cloudfront.net
+    </pre>
+
+    <p>
+        Opening that URL showed:
+    </p>
+
+    <p><strong>"Hello, this is my first AWS project!"</strong></p>
+
+    <img src="../assets/final-output.png" alt="Website Output" class="project-img">
+
+    <!-- WHY IT MATTERS -->
+    <h2>Why This Setup Matters</h2>
+    <p>
+        Even though this is a simple project, it introduces several important AWS concepts:
+    </p>
+
+    <ul>
+        <li>S3 for static website storage</li>
+        <li>CloudFront for global content delivery</li>
+        <li>Private buckets for security</li>
+        <li>Origin Access Control (OAC)</li>
+    </ul>
+
+    <p>
+        This architecture is very similar to what many production static websites use.
+    </p>
+
+    <!-- BACK BUTTON -->
+    <div class="project-links">
+        <a href="../projects.html">← Back to Projects</a>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 Bach
+</footer>
+
+</body>
+</html>
