@@ -40,40 +40,6 @@ h1, h2, h3 {
 }
 
 /* ========================
-   BODY BACKGROUNDS & GLOWS
-======================== */
-/*body::before {
-    content: "";
-    position: fixed;
-    left: -200px;
-    bottom: -100px;   /* bottom-left placement */
-/*    width: 600px;
-    height: 600px;
-    background: radial-gradient(
-        circle,
-        rgba(139,92,246,0.35), /* strong purple */
-/*        transparent 70%
-    );
-    animation: purplePulse 12s infinite alternate;
-    z-index: -1;
-}
-
-body::after {
-    content: "";
-    position: fixed;
-    right: -200px;
-    bottom: -100px;  /* mirror placement */
-/*    width: 600px;
-    height: 600px;
-    background: radial-gradient(
-        circle,
-        rgba(34,197,94,0.35), /* same opacity as purple */
-/*        transparent 70%
-    );
-    animation: greenPulse 12s infinite alternate;
-    z-index: -1;
-}
-/* ========================
    HEADER & HERO
 ======================== */
 header {
@@ -355,7 +321,14 @@ footer {
     to { transform: translateX(-120px) scale(1.1); }
 }
 
-
+.project-img {
+    width: 600px;   /* fixed width */
+    height: auto;   /* keeps the aspect ratio */
+    display: block; /* removes inline spacing */
+    margin: 20px 0; /* optional spacing above/below */
+    border-radius: 8px; /* optional: rounded corners */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* optional: subtle shadow */
+}
 
 
 
