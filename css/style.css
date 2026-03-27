@@ -48,17 +48,17 @@ h1, h2, h3 {
 /* ========================
    BODY BACKGROUNDS & GLOWS
 ======================== */
-body::before {
+/*body::before {
     content: "";
     position: fixed;
     left: -200px;
     bottom: -100px;   /* bottom-left placement */
-    width: 600px;
+/*    width: 600px;
     height: 600px;
     background: radial-gradient(
         circle,
         rgba(139,92,246,0.35), /* strong purple */
-        transparent 70%
+/*        transparent 70%
     );
     animation: purplePulse 12s infinite alternate;
     z-index: -1;
@@ -69,12 +69,12 @@ body::after {
     position: fixed;
     right: -200px;
     bottom: -100px;  /* mirror placement */
-    width: 600px;
+/*    width: 600px;
     height: 600px;
     background: radial-gradient(
         circle,
         rgba(34,197,94,0.35), /* same opacity as purple */
-        transparent 70%
+/*        transparent 70%
     );
     animation: greenPulse 12s infinite alternate;
     z-index: -1;
