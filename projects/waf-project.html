@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AWS WAF + CloudFront | Bach</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Adding AWS WAF to CloudFront to filter and secure traffic. Beginner-friendly walkthrough.">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="sub-hero">
+    <h1>Adding AWS WAF to CloudFront</h1>
+    <p>Filtering Traffic & Securing My Site</p>
+</header>
+
+<nav>
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../projects.html">Projects</a>
+</nav>
+
+<section class="container">
+
+    <h2>Overview</h2>
+    <p>
+        After getting my site up with S3 and CloudFront, I wanted to add some security.
+        That’s where AWS WAF comes in. It acts like a filter in front of your site and blocks
+        unwanted traffic before it ever reaches your content.
+    </p>
+
+    <p>
+        In this project, I set up a Web ACL, added managed rules, and attached it to my CloudFront distribution.
+    </p>
+
+    <h2>Architecture Diagram</h2>
+    <p>
+        At a high level, my setup now looks like this:
+    </p>
+
+    <img src="../assets/waf-project/architecture.png" alt="WAF Architecture Diagram" class="project-img">
+
+    <p>
+        Instead of requests going directly to my site, they now pass through AWS WAF first.
+    </p>
+
+    <!-- STEP 1 -->
+    <h2>Step 1: Create the WAF</h2>
+    <p>
+        I started by navigating to:
+    </p>
+
+    <p><strong>AWS Console → WAF & Shield → Web ACLs → Create Web ACL</strong></p>
+
+    <p><strong>Configuration:</strong></p>
+    <ul>
+        <li>Name: <strong>MyFirstWAF</strong></li>
+        <li>Application type: Content & publishing systems</li>
+    </ul>
+
+    <p>
+        One important note: CloudFront WAFs are global, so make sure you're not configuring a regional WAF.
+    </p>
+
+    <!-- STEP 2 -->
+    <h2>Step 2: Add Rules</h2>
+    <p>
+        This is where the filtering actually happens.
+    </p>
+
+    <p>
+        Under <strong>Choose initial protections</strong>, AWS gives three options:
+        Recommended, Essentials, and You build it.
+    </p>
+
+    <p>
+        I chose <strong>You build it</strong> so I could better understand what’s happening under the hood.
+    </p>
+
+    <p><strong>Steps:</strong></p>
+    <ul>
+        <li>Click <strong>Add rules</strong></li>
+        <li>Select <strong>Add managed rule groups</strong></li>
+        <li>Add:
+            <ul>
+                <li>AWSManagedRulesCommonRuleSet</li>
+                <li>AWSManagedRulesKnownBadInputsRuleSet</li>
+            </ul>
+        </li>
+    </ul>
+
+    <p>
+        These provide built-in protection against things like:
+    </p>
+
+    <ul>
+        <li>SQL injection</li>
+        <li>Cross-site scripting (XSS)</li>
+        <li>Malformed or malicious inputs</li>
+    </ul>
+
+    <p>
+        It’s basically plug-and-play security.
+    </p>
+
+    <!-- STEP 2.5 -->
+    <h2>Step 2.5: Block My Own IP (Testing)</h2>
+    <p>
+        To make sure everything worked, I created a simple test rule:
+    </p>
+
+    <ul>
+        <li>Created an IP set</li>
+        <li>Added my public IP</li>
+        <li>Set the rule action to <strong>Block</strong></li>
+    </ul>
+
+    <p>
+        If everything is configured correctly, I should block myself.
+    </p>
+
+    <!-- STEP 3 -->
+    <h2>Step 3: Default Behavior</h2>
+    <p>
+        For the default action:
+    </p>
+
+    <ul>
+        <li>Allow all traffic by default</li>
+        <li>Only block requests that match defined rules</li>
+    </ul>
+
+    <p>
+        Then I created the Web ACL.
+    </p>
+
+    <img src="../assets/waf-project/waf-create.png" alt="WAF Creation" class="project-img">
+
+    <!-- STEP 4 -->
+    <h2>Step 4: Attach WAF to CloudFront</h2>
+    <p>
+        Next, I connected the WAF to my CloudFront distribution:
+    </p>
+
+    <ul>
+        <li>Go to <strong>CloudFront</strong></li>
+        <li>Select your distribution</li>
+        <li>Open the <strong>Security</strong> tab</li>
+        <li>Click <strong>Manage Security Protections</strong></li>
+        <li>Enable protections</li>
+        <li>Select <strong>Use existing WAF configuration</strong></li>
+        <li>Choose <strong>MyFirstWAF</strong></li>
+        <li>Save changes</li>
+    </ul>
+
+    <p>
+        Now WAF sits in front of my site and filters incoming requests.
+    </p>
+
+    <p>
+        <strong>Note:</strong> If a WAF is already attached, you’ll need to remove it first.
+    </p>
+
+    <!-- STEP 4.5 -->
+    <h2>Step 4.5: Testing</h2>
+    <p>
+        Since I blocked my own IP, I tested by visiting my CloudFront URL.
+    </p>
+
+    <p>
+        I got an <strong>Access Denied</strong> page, which confirmed everything was working.
+    </p>
+
+    <img src="../assets/waf-project/access-denied.png" alt="Access Denied Page" class="project-img">
+
+    <!-- STEP 6 -->
+    <h2>Step 6: Monitoring Traffic</h2>
+    <p>
+        To see what’s happening behind the scenes:
+    </p>
+
+    <ul>
+        <li>Go to WAF</li>
+        <li>Open your Web ACL</li>
+        <li>Check <strong>Monitoring and Sampled requests</strong></li>
+    </ul>
+
+    <p>
+        This shows:
+    </p>
+
+    <ul>
+        <li>Allowed requests</li>
+        <li>Blocked requests</li>
+        <li>Which rule triggered the action</li>
+    </ul>
+
+    <p>
+        It’s very helpful for debugging and understanding traffic patterns.
+    </p>
+
+    <!-- LEARNED -->
+    <h2>What I Learned</h2>
+    <p>
+        WAF was much easier to set up than I expected.
+    </p>
+
+    <p>
+        Instead of manually writing complex security rules, AWS provides managed rule sets
+        that can be quickly attached for immediate protection.
+    </p>
+
+    <p>
+        This makes it a great way to add a security layer to any CloudFront-based application.
+    </p>
+
+    <!-- BACK BUTTON -->
+    <div class="project-links">
+        <a href="../projects.html">← Back to Projects</a>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 Bach
+</footer>
+
+</body>
+</html>
